@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Emotion-Based YouTube Music with Hand Gesture</title>
+  <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/handtrackjs@0.0.9/dist/handtrack.min.js"></script>
+  <script defer src="face-api.min.js"></script>
+  <script defer src="script.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    video {
+      border: 1px solid black;
+    }
+    #emotion-display {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    #status-display {
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: normal;
+      color: #333;
+    }
+    iframe {
+      margin-top: 20px;
+      width: 560px;
+      height: 315px;
+      border: none;
+    }
+    #lyrics-display {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #333;
+      white-space: pre-wrap;
+      text-align: center;
+      max-width: 700px;
+    }
+  </style>
+</head>
+<body>
+  <video id="video" width="720" height="560" autoplay muted></video>
+  <div id="emotion-display">Detecting emotions...</div>
+  <div id="status-display">Waiting for gesture...</div>
+  <iframe id="youtube-player" allow="autoplay"></iframe>
+  <div id="lyrics-display"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const video = document.getElementById('video');
+      const emotionDisplay = document.getElementById('emotion-display');
+      const statusDisplay = document.getElementById('status-display');
+      const youtubePlayer = document.getElementById('youtube-player');
+      const lyricsDisplay = document.getElementById('lyrics-display');
+
+      // YouTube search keywords mapped to emotions
+      const emotionSongs = {
+        happy: 'trending hindi songs 2025 in instagram',
+        sad: 'trending hindi sad songs instagram',
+        angry: 'trending hindi angry songs instagram',
+        fearful: 'trending hindi fearful songs instagram',
+        disgusted: 'trending hindi disgusted songs instagram',
+        surprised: 'trending hindi surprised songs instagram',
+        neutral: 'trending hindi calm music instagram',
+      };
+
+      // Track previously played songs to avoid repetition
+      let playedSongs = new Set();
+      let isSongPlaying = false;
+
+      // Load face-api models
+      Promise.all([
+        faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
+        faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+        faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
+        faceapi.nets.faceExpressionNet.loadFromUri('/models'),
+      ]).then(startVideo);
+
+      // Initialize hand tracking
+      const modelParams = {
+        flipHorizontal: true,   // Flip the camera horizontally
+        maxNumBoxes: 1,         // Limit to 1 hand gesture detection
+        iouThreshold: 0.5,      // Minimum IOU for multiple boxes
+        scoreThreshold: 0.6     // Confidence threshold
+      };
+
+      let model;
+
+      handTrack.load(modelParams).then(loadedModel => {
+        model = loadedModel;
+        startVideo();
+      });
+
+      function startVideo() {
+        navigator.getUserMedia(
+          { video: {} },
+          (stream) => (video.srcObject = stream),
+          (err) => console.error(err)
+        );
+      }
+
+      video.addEventListener('play', () => {
+        const canvas = faceapi.createCanvasFromMedia(video);
+        document.body.append(canvas);
+        const displaySize = { width: video.width, height: video.height };
+        faceapi.matchDimensions(canvas, displaySize);
+
+        setInterval(async () => {
+          const detections = await faceapi
+            .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
+            .withFaceLandmarks()
+            .withFaceExpressions();
+          const resizedDetections = faceapi.resizeResults(detections, displaySize);
+          canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+          faceapi.draw.drawDetections(canvas, resizedDetections);
+          faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+          faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
+
+          if (detections.length > 0) {
+            const expressions = detections[0].expressions;
+            const highestEmotion = Object.keys(expressions).reduce((a, b) =>
+              expressions[a] > expressions[b] ? a : b
+            );
+
+            const emojiMap = {
+              happy: '😊',
+              sad: '😢',
+              angry: '😠',
+              fearful: '😱',
+              disgusted: '🤢',
+              surprised: '😲',
+              neutral: '😐',
+            };
+
+            const emoji = emojiMap[highestEmotion] || '🤔';
+            emotionDisplay.textContent = `Emotion: ${highestEmotion} ${emoji}`;
+
+            // Detect hand gestures
+            model.detect(video).then(predictions => {
+              if (predictions.length > 0) {
+                const hand = predictions[0];
+                const isHandOpen = hand.landmarks[4][1] < hand.landmarks[20][1]; // Check thumb to pinky distance
+
+                if (isHandOpen) {
+                  statusDisplay.textContent = "Hand open detected!";
+                  if (!isSongPlaying) {
+                    playNewSong(emotionSongs[highestEmotion]);
+                  }
+                } else {
+                  statusDisplay.textContent = "Hand closed detected!";
+                  if (isSongPlaying) {
+                    stopSong();
+                  }
+                }
+              }
+            });
+          }
+        }, 100);
+      });
+
+      // Function to search and play a non-repeating trending Hindi music based on emotion
+      const playNewSong = async (emotionKeyword) => {
+        try {
+          const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
+            params: {
+              q: emotionKeyword,
+              part: 'snippet',
+              key: 'AIzaSyAXxhiLDukJ-h5bcuSdxWhw7LEMJbm_BdU', // Replace with your own API key
+              type: 'video',
+              maxResults: 10,
+            },
+          });
+
+          if (response.data.items.length > 0) {
+            const unplayedSongs = response.data.items.filter(item => !playedSongs.has(item.id.videoId));
+
+            if (unplayedSongs.length > 0) {
+              const videoId = unplayedSongs[0].id.videoId;
+
+              // Add this song to the played songs set
+              playedSongs.add(videoId);
+
+              // Update the iframe to play the new video
+              youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+              youtubePlayer.style.display = 'block';
+
+              // Set song as playing
+              isSongPlaying = true;
+
+              // Start speech recognition as the song starts
+              recognition.start(); // Start transcribing the audio of the song
+            } else {
+              playedSongs.clear();
+              playNewSong(emotionKeyword); // Try again
+            }
+          } else {
+            alert("Sorry, no song found for the emotion.");
+          }
+        } catch (error) {
+          alert("Error fetching song. Please try again.");
+        }
+      };
+
+      // Stop the song and reset status
+      const stopSong = () => {
+        youtubePlayer.src = '';
+        youtubePlayer.style.display = 'none';
+        isSongPlaying = false;
+      };
+    });
+  </script>
+</body>
+</html>
