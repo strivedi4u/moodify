@@ -148,49 +148,59 @@ flowchart TD
 
 ---
    ```
+
 2. **Install dependencies**
-   ```sh
-   npm install
+    ```sh
+    npm install
+    ```
 3. **Run the server**
-   ```sh
-- Grant webcam access when prompted.
-- View detected emotion and emoji in the UI.
-- Click the play button to get mood-based music recommendations.
-- Use music player controls to play, pause, skip tracks.
-- Images are captured and stored for each detected emotion.
+    ```sh
+    npm start
+    ```
+4. **Open in browser**
+    Visit [http://localhost:8000](http://localhost:8000)
 
 ---
 
-## API Endpoints
+## 🎮 Usage
+- 📷 Grant webcam access when prompted.
+- 😊 View detected emotion and emoji in the UI.
+- ▶️ Click the play button to get mood-based music recommendations.
+- ⏯️ Use music player controls to play, pause, skip tracks.
+- 🖼️ Images are captured and stored for each detected emotion.
+
+---
+
+## 🔌 API Endpoints
 - `GET /get-image-count` — Returns the number of saved images.
 - `GET /get-images` — Returns list of saved images.
 - `POST /save-image` — Saves a base64-encoded image.
 
 ---
 
-## License
+## 📄 License
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 
-## Author
+## 👤 Author
 Developed by [Shashank Trivedi](https://github.com/strivedi4u)
 
 ---
 
-## Follow & Connect
-- [GitHub](https://github.com/strivedi4u)
-- [LinkedIn](https://www.linkedin.com/in/shashanktrivedi)
-- [Twitter](https://twitter.com/strivedi4u)
+## 🌐 Follow & Connect
+- 🐙 [GitHub](https://github.com/strivedi4u)
+- 💼 [LinkedIn](https://www.linkedin.com/in/shashanktrivedi)
+- 🐦 [Twitter](https://twitter.com/strivedi4u)
 
 ---
 
-## Contributing
+## 🤝 Contributing
 Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
 ---
 
-## Acknowledgements
+## 🙏 Acknowledgements
 - [face-api.js](https://github.com/justadudewhohacks/face-api.js)
 - [TensorFlow.js](https://www.tensorflow.org/js)
 - [Bootstrap](https://getbootstrap.com/)
