@@ -79,17 +79,9 @@ Moodify is an advanced web application that leverages AI-powered facial emotion 
 
 ## 🔄 Data Flow & Architecture
 
-```mermaid
-flowchart TD
-    A[📷 User Webcam] --> B[🧠 Face Detection (face-api.js)]
-    B --> C[😊 Emotion Recognition]
-    C --> D[🖥️ UI Update]
-    D --> E[🎵 Music Recommendation]
-    E --> F[⏯️ Music Player]
-    C --> G[🖼️ Image Capture]
-    G --> H[🌐 Express.js Backend]
-    H --> I[💾 Image Storage]
-```
+
+<!-- Mermaid diagram removed due to GitHub rendering limitations. See documentation for supported syntax. -->
+
 
 ### Data Flow Steps
 1. 📷 **User Webcam**: User grants access to webcam.
@@ -211,7 +203,7 @@ Developed by [Shashank Trivedi](https://github.com/strivedi4u)
 ---
 
 ## 🌐 Follow & Connect
-- 🐙 [GitHub](https://github.com/strivedi4u)
+- [![Follow on GitHub](https://img.shields.io/github/followers/strivedi4u?label=Follow&style=social)](https://github.com/strivedi4u)
 - 💼 [LinkedIn](https://www.linkedin.com/in/shashanktrivedi)
 - 🐦 [Twitter](https://twitter.com/strivedi4u)
 
