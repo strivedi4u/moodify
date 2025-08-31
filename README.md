@@ -137,11 +137,10 @@ flowchart TD
    cd moodify
 ![Moodify Logo](./public/assets/images/logo.png)
 
----
 
 ## Screenshots
+[Access Moodify Live](https://moodify4u.azurewebsites.net)
 
-### 1. Music Recommendation UI
 ![Music Player Screenshot](docs/screenshots/music-player.png)
 
 ### 2. Emotion Detection & Song Suggestion
