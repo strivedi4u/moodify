@@ -49,6 +49,7 @@ Moodify is an advanced web application that leverages AI-powered facial emotion 
 
 
 
+## 🗂️ Project Structure
 ```
 ├── Dockerfile
 ├── imageCount.json
@@ -62,30 +63,51 @@ Moodify is an advanced web application that leverages AI-powered facial emotion 
 │   ├── music.css           # Music player styles
 │   ├── music.js            # Music player logic
 │   ├── script.js           # Main app logic (emotion detection, UI)
+│   ├── user.html           # User profile (optional)
 │   ├── assets/
 │   │   └── images/
+│   │       ├── bg.avif     # Background image
+│   │       └── logo.png    # App logo
+│   ├── images/             # Saved user images
+│   └── models/             # Face detection & emotion models
+│       ├── face_expression_model-shard1
 │       ├── face_expression_model-weights_manifest.json
+│       ├── ...
 ```
+
+
+
+## 🔄 Data Flow & Architecture
 
 
 <!-- Mermaid diagram removed due to GitHub rendering limitations. See documentation for supported syntax. -->
 
 
 ### Data Flow Steps
+1. 📷 **User Webcam**: User grants access to webcam.
 2. 🧠 **Face Detection**: face-api.js detects faces and landmarks.
 3. 😊 **Emotion Recognition**: AI model predicts user's emotion.
 4. 🖥️ **UI Update**: Detected emotion is displayed with emoji and text.
 5. 🎵 **Music Recommendation**: App fetches mood-based songs from iTunes API.
+6. ⏯️ **Music Player**: User can play, skip, or pause recommended tracks.
 7. 🖼️ **Image Capture**: Captures webcam image when emotion is detected.
 8. 🌐 **Express.js Backend**: Handles image saving and retrieval via REST API.
+9. 💾 **Image Storage**: Images are stored in `public/images/` and tracked in `imageCount.json`.
 
+
+
+## 🖼️ Diagrams
 
 ### 1. Component Diagram
 ```mermaid
 flowchart LR
+    subgraph Frontend
         UI[💻 HTML/CSS/JS]
         FaceAPI[🧠 face-api.js]
-
+        MusicPlayer[🎶 music.js]
+    end
+    subgraph Backend
+        Express[🌐 Express.js]
         Storage[💾 File System]
     end
     UI --> FaceAPI
@@ -95,19 +117,33 @@ flowchart LR
 ```
 
 ### 2. Sequence Diagram
+```mermaid
 sequenceDiagram
     participant User
+    participant Browser
+    participant FaceAPI
+    participant Backend
+    participant iTunesAPI
+    User->>Browser: Open Moodify
     Browser->>FaceAPI: Start webcam & detect emotion
+    FaceAPI->>Browser: Return detected emotion
     Browser->>iTunesAPI: Fetch songs for emotion
     iTunesAPI->>Browser: Return song list
+    Browser->>Backend: Save captured image
+    Backend->>Browser: Confirm image saved
+    Browser->>User: Display emotion & play music
 ```
+
 ### 3. Data Storage Diagram
 ```mermaid
 flowchart TD
     A[imageCount.json] --> B[Tracks image count]
+    C[public/images/] --> D[Stores captured images]
 ```
 
 ---
+
+## Installation
 
 
 1. **Clone the repository**
