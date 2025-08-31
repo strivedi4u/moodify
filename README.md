@@ -6,17 +6,19 @@
 
 ---
 
+
 ## 🚀 Live Demo
-[👉 Access Moodify Live](https://moodify4u.azurewebsites.net)
+- 🌐 [Moodify Live Website](https://moodify4u.azurewebsites.net)
+- 🔗 [https://moodify4u.azurewebsites.net](https://moodify4u.azurewebsites.net)
 
 ---
 
 ## 📸 Screenshots
 ### 1. Music Recommendation UI
-![Music Player Screenshot](docs/screenshots/music-player.png)
+![Music Player Screenshot](https://github.com/strivedi4u/moodify/blob/master/public/assets/images/image.png)
 
 ### 2. Emotion Detection & Song Suggestion
-![Emotion Detection Screenshot](docs/screenshots/emotion-detection.png)
+![Emotion Detection Screenshot](https://github.com/strivedi4u/moodify/blob/master/public/assets/images/image1.png)
 
 ---
 
