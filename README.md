@@ -24,12 +24,31 @@
 
 ## 📊 Project Presentation
 
-Learn about the project’s goals, features, technology stack, and workflow with our concise, visual presentation.
+Get a quick, visual overview of the project’s goals, features, and design.
 
-<a href="https://www.canva.com/design/DAGcqU7R59g/ZqOJM7ATCWQsPMgJj4q8QQ/view?utm_content=DAGcqU7R59g&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h259d11325f" target="_blank">
+<a href="https://www.canva.com/design/DAGd1orZkkI/9nVjlgngl-JPhCE4gcl5XA/view?utm_content=DAGd1orZkkI&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h21fe6bde19" target="_blank">
   <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/canva_logo_icon_168460.png" alt="Canva Logo" width="16" style="vertical-align:middle; margin-right:6px;"/>
-  <b>View Project Presentation on Canva</b>
+  <b>View the Presentation on Canva</b>
 </a>
+
+---
+
+### 📖 Presentation Contents
+
+- **Project Overview & Vision**
+- **Key Features & Benefits**
+- **Tech Stack**
+- **Architecture & Diagrams**
+- **Screenshots**
+- **Contact & Author Info**
+
+---
+
+> [Click here to open the Canva presentation directly.](https://www.canva.com/design/DAGd1orZkkI/9nVjlgngl-JPhCE4gcl5XA/view?utm_content=DAGd1orZkkI&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h21fe6bde19)
+
+---
+
+**Feedback and collaboration are always welcome!**
 
 ---
 
