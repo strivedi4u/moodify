@@ -22,9 +22,38 @@
 
 ---
 
+## 📊 Project Presentation
+
+Learn about the project’s goals, features, technology stack, and workflow with our concise, visual presentation.
+
+<a href="https://www.canva.com/design/DAGcqU7R59g/ZqOJM7ATCWQsPMgJj4q8QQ/view?utm_content=DAGcqU7R59g&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h259d11325f" target="_blank">
+  <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/canva_logo_icon_168460.png" alt="Canva Logo" width="16" style="vertical-align:middle; margin-right:6px;"/>
+  <b>View Project Presentation on Canva</b>
+</a>
+
+---
+
+### 📖 What’s Inside?
+
+- **Overview:** Introduction to the project and its vision  
+- **Key Features:** Highlighted functionalities and user benefits  
+- **Tech Stack:** Technologies and frameworks powering the solution  
+- **Architecture:** Diagrams and explanations of the system workflow  
+- **Screenshots:** Visual walkthrough of the UI/UX  
+- **Contact:** Author information and ways to connect
+
+---
+
+> 👀 **Tip:** Want a quick summary?  
+> [Click here to open the presentation.](https://www.canva.com/design/DAGcqU7R59g/ZqOJM7ATCWQsPMgJj4q8QQ/view?utm_content=DAGcqU7R59g&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h259d11325f)
+
+---
+
+**Enjoy exploring!** 🎉  
+If you have feedback or suggestions, feel free to [open an issue](../../issues) or [connect with the author](https://www.linkedin.com/in/shashanktrivedi).
+
 ## 📝 Overview
 Moodify is an advanced web application that leverages AI-powered facial emotion recognition to recommend and play music that matches your current mood. Built with TensorFlow.js, face-api.js, and Express.js, Moodify provides a seamless, interactive experience for users to detect their emotions in real-time and enjoy mood-based music recommendations.
-
 
 
 ## 📚 Table of Contents
